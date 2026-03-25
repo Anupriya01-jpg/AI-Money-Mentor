@@ -1,0 +1,26 @@
+from fastapi import APIRouter
+from app.services.sip_calculator import calculate_sip
+from app.services.score_engine import calculate_score
+from app.services.ai_advisor import get_advice
+
+router = APIRouter()
+
+# SIP Calculator API
+@router.get("/sip")
+def sip(amount: float, rate: float, years: int):
+    result = calculate_sip(amount, rate, years)
+    return {"future_value": result}
+
+
+# Money Health Score API
+@router.post("/score")
+def score(data: dict):
+    result = calculate_score(data)
+    return {"score": result}
+
+
+# AI Advisor API
+@router.post("/advisor")
+def advisor(data: dict):
+    response = get_advice(data["message"])
+    return {"response": response}

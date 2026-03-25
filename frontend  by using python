@@ -1,0 +1,10 @@
+from fastapi import FastAPI
+from app.routes.finance import router as finance_router
+
+app = FastAPI(title="AI Money Mentor")
+
+app.include_router(finance_router)
+
+@app.get("/")
+def home():
+    return {"message": "AI Money Mentor API Running"}
